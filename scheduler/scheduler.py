@@ -12,6 +12,15 @@ def on_message(client, userdata, msg):
 def update_temp(temp):
     client.publish("LORA/send", "APPLYTEMP," + str(temp))
 
+hot = False
+
+def toggle_temp():
+    if hot:
+        update_temp(30)
+    else:
+        update_temp(10)
+    hot = not hot
+
 client = mqtt.Client()
 client.on_connect = on_connect
 client.on_message = on_message
@@ -53,8 +62,7 @@ schedule.every().sunday.at("06:00").do(update_temp, 21)
 schedule.every().sunday.at("23:00").do(update_temp, 18)
 
 # Test schedule (not recommended)
-schedule.every().minute.at(":15").do(update_temp, 10)
-schedule.every().minute.at(":45").do(update_temp, 30)
+schedule.every(15).seconds.do(toggle_temp)
 
 while True:
     schedule.run_pending()
