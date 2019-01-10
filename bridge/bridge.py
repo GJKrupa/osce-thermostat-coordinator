@@ -41,30 +41,6 @@ class LoRaRcvCont(LoRa):
         BOARD.led_off()
         self.set_mode(MODE.RXCONT)
 
-    def on_tx_done(self):
-        print("\nTxDone")
-        print(self.get_irq_flags())
-
-    def on_cad_done(self):
-        print("\non_CadDone")
-        print(self.get_irq_flags())
-
-    def on_rx_timeout(self):
-        print("\non_RxTimeout")
-        print(self.get_irq_flags())
-
-    def on_valid_header(self):
-        print("\non_ValidHeader")
-        print(self.get_irq_flags())
-
-    def on_payload_crc_error(self):
-        print("\non_PayloadCrcError")
-        print(self.get_irq_flags())
-
-    def on_fhss_change_channel(self):
-        print("\non_FhssChangeChannel")
-        print(self.get_irq_flags())
-
     def start(self):
         self.reset_ptr_rx()
         self.set_mode(MODE.RXCONT)
