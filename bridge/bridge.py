@@ -13,6 +13,7 @@ def on_message(client, userdata, msg):
         print(msg.topic+" "+str(msg.payload))
         msg_text = str(msg.payload)
         print("Sending LoRa message")
+        self.set_mode(MODE.STDBY)
         BOARD.led_on()
         lora.write_payload(list(bytearray(msg_text)))
         lora.set_mode(MODE.TX)
@@ -43,6 +44,7 @@ class LoRaRcvCont(LoRa):
         self.clear_irq_flags(TxDone=1)
         sys.stdout.write("\rTxDone")
         BOARD.led_off()
+        self.reset_ptr_rx()
         self.set_mode(MODE.RXCONT)
 
     def on_cad_done(self):
