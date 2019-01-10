@@ -13,9 +13,8 @@ def on_message(client, userdata, msg):
         print(msg.topic+" "+str(msg.payload))
         msg_text = str(msg.payload)
         print("Sending LoRa message")
-        lora.set_mode(MODE.STDBY)
-        BOARD.led_on()
         lora.write_payload(list(bytearray(msg_text)))
+        lora.set_dio_mapping([1,0,0,0,0,0]) # set DIO0 for txdone
         lora.set_mode(MODE.TX)
         print("LoRa message sent")
     except Exception as e:
@@ -39,12 +38,9 @@ class LoRaRcvCont(LoRa):
         self.set_dio_mapping([0,0,0,0,0,0])
 
     def on_tx_done(self):
-        global args
-        self.set_mode(MODE.STDBY)
-        self.clear_irq_flags(TxDone=1)
-        sys.stdout.write("\rTxDone")
-        BOARD.led_off()
-        self.reset_ptr_rx()
+        print("TxDone")
+        self.clear_irq_flags(TxDone=1) # clear txdone IRQ flag
+        self.set_dio_mapping([0] * 6)    
         self.set_mode(MODE.RXCONT)
 
     def on_cad_done(self):
