@@ -1,0 +1,15 @@
+version: '2'
+services:
+  mqtt:
+    build: ./mqtt
+    restart: always
+  app:
+    build: ./app
+    privileged: true
+    restart: always
+    devices:
+      - "/dev/i2c-1:/dev/i2c-1"
+    cap_add: 
+      - SYS_RAWIO
+    depends_on:
+      - mqtt

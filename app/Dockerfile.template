@@ -1,0 +1,4 @@
+FROM resin/%%BALENA_MACHINE_NAME%%-python
+COPY entrypoint.sh /
+ENTRYPOINT ["/bin/sh", "-c"]
+CMD ["/entrypoint.sh"]
