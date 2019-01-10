@@ -1,5 +1,6 @@
 #!/bin/sh
-while 1; do
+while true
+do
     echo "Running app"
     sleep 1
 done
