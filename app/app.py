@@ -7,14 +7,14 @@ def on_connect(client, userdata, flags, rc):
     client.subscribe("LORA/recv")
 
 def on_message(client, userdata, msg):
-    try:
-        print(msg.topic+" "+str(msg.payload))
+    try:        
         msg_txt = str(msg.payload)
-        if (msg_text.startswith("SETTEMP,")):
+        print("MSG: " + msg.topic + " " + msg_txt)
+        if msg_text.startswith("SETTEMP,"):
             println("Set temperature message")
             cmd, value = msg_txt.split(",", 1)
             temp = int(value)
-            if (value >= 10 and value <= 30):
+            if value >= 10 and value <= 30:
                 client.publish("LORA/send", "APPLYTEMP," + value)
             else:
                 println("Invalid temperature: " + value)
