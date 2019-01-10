@@ -42,7 +42,7 @@ class LoRaRcvCont(LoRa):
         print("\nRxDone")
         self.clear_irq_flags(RxDone=1)
         payload = self.read_payload(nocheck=True)
-        print(bytes(payload).decode("utf-8"))
+        print(str(bytes(payload)))
         self.set_mode(MODE.SLEEP)
         self.reset_ptr_rx()
         BOARD.led_off()
