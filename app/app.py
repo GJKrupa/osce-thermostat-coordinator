@@ -16,6 +16,8 @@ def on_message(client, userdata, msg):
             client.publish("LORA/send", "APPLYTEMP," + value)
         else:
             println("Invalid temperature: " + value)
+    else:
+        println("Unrecognised message")
 
 client = mqtt.Client()
 client.on_connect = on_connect
