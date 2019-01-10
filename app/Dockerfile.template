@@ -1,6 +1,7 @@
 FROM resin/%%BALENA_MACHINE_NAME%%-python
 
 COPY app.py /
+COPY SX127x/* /SX127x/
 RUN pip install paho-mqtt
 
 COPY entrypoint.sh /
