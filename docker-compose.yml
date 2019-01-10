@@ -8,6 +8,11 @@ services:
     restart: always
     depends_on:
       - mqtt
+  scheduler:
+    build: ./scheduler
+    restart: always
+    depends_on:
+      - mqtt
   bridge:
     build: ./bridge
     privileged: true

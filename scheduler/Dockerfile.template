@@ -1,0 +1,10 @@
+FROM resin/%%BALENA_MACHINE_NAME%%-python
+
+COPY entrypoint.sh /
+RUN chmod 755 /entrypoint.sh
+
+COPY scheduler.py /
+RUN pip install paho-mqtt schedule
+
+ENTRYPOINT ["/bin/sh", "-c"]
+CMD ["/entrypoint.sh"]
