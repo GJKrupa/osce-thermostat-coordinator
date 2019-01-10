@@ -20,8 +20,8 @@ def on_message(client, userdata, msg):
                 println("Invalid temperature: " + value)
         else:
             println("Unrecognised message")
-    except Exception, e:
-        println("Error: " + e)
+    except:
+        print "Unexpected error:", sys.exc_info()[0]
 
 client = mqtt.Client()
 client.on_connect = on_connect
