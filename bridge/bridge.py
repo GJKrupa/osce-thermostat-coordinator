@@ -39,6 +39,7 @@ class LoRaRcvCont(LoRa):
         self.set_mode(MODE.STDBY)
         self.clear_irq_flags(TxDone=1)
         BOARD.led_off()
+        self.set_mode(MODE.RXCONT)
 
     def on_rx_done(self):
         BOARD.led_on()
