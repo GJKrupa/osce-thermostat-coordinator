@@ -13,7 +13,9 @@ def on_message(client, userdata, msg):
         print(msg.topic+" "+str(msg.payload))
         msg_text = str(msg.payload)
         print("Sending LoRa message")
+        BOARD.led_on()
         lora.write_payload(list(bytearray(msg_text)))
+        lora.set_mode(MODE.TX)
         print("LoRa message sent")
     except Exception as e:
         print("Unexpected error", e)
@@ -36,11 +38,32 @@ class LoRaRcvCont(LoRa):
         self.set_dio_mapping([0,0,0,0,0,0])
 
     def on_tx_done(self):
-        print("TxDone")
+        global args
         self.set_mode(MODE.STDBY)
         self.clear_irq_flags(TxDone=1)
+        sys.stdout.write("\rTxDone")
         BOARD.led_off()
         self.set_mode(MODE.RXCONT)
+
+    def on_cad_done(self):
+        print("\non_CadDone")
+        print(self.get_irq_flags())
+
+    def on_rx_timeout(self):
+        print("\non_RxTimeout")
+        print(self.get_irq_flags())
+
+    def on_valid_header(self):
+        print("\non_ValidHeader")
+        print(self.get_irq_flags())
+
+    def on_payload_crc_error(self):
+        print("\non_PayloadCrcError")
+        print(self.get_irq_flags())
+
+    def on_fhss_change_channel(self):
+        print("\non_FhssChangeChannel")
+        print(self.get_irq_flags())
 
     def on_rx_done(self):
         BOARD.led_on()
