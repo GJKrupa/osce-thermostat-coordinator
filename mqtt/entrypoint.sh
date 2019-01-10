@@ -1,6 +1,2 @@
 #!/bin/sh
-while true
-do
-    echo "Running mqtt server"
-    sleep 1
-done
+/usr/sbin/mosquitto -c /etc/mosquitto/mosquitto.conf
