@@ -14,7 +14,7 @@ def on_message(client, userdata, msg):
         msg_text = str(msg.payload)
         print("Sending LoRa message")
         BOARD.led_on()
-        lora.write_payload(bytes(msg_text))
+        lora.write_payload(list(bytearray(msg_text)))
         lora.set_mode(MODE.TX)
         print("LoRa message sent")
     except Exception as e:
