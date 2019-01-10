@@ -11,19 +11,18 @@ def on_message(client, userdata, msg):
         msg_txt = str(msg.payload)
         print("MSG: " + msg.topic + " " + msg_txt)
         if msg_txt.startswith("SETTEMP,"):
-            println("Set temperature message")
+            print("Set temperature message")
             cmd, value = msg_txt.split(",", 1)
             temp = int(value)
-            if value >= 10 and value <= 30:
-                client.publish("LORA/send", "APPLYTEMP," + value)
+            if temp >= 10 and temp <= 30:
+                client.publish("LORA/send", "APPLYTEMP," + str(temp))
+                print("Apply temperature message sent")
             else:
-                println("Invalid temperature: " + value)
+                print("Invalid temperature: " + value)
         else:
-            println("Unrecognised message")
+            print("Unrecognised message")
     except Exception as e:
-        println("Unexpected error:" + e.message)
-    except:
-        println("Unexpected error")
+        print("Unexpected error", e)
 
 client = mqtt.Client()
 client.on_connect = on_connect
