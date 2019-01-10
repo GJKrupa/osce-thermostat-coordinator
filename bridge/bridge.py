@@ -11,7 +11,11 @@ def on_connect(client, userdata, flags, rc):
 def on_message(client, userdata, msg):
     print(msg.topic+" "+str(msg.payload))
     msg_text = str(msg.payload)
+    print("Sending LoRa message")
+    BOARD.led_on()
     lora.write_payload(bytes(msg_text))
+    lora.set_mode(MODE.TX)
+    print("LoRa message sent")
 
 client = mqtt.Client()
 client.on_connect = on_connect
@@ -28,7 +32,13 @@ class LoRaRcvCont(LoRa):
     def __init__(self, verbose=False):
         super(LoRaRcvCont, self).__init__(verbose)
         self.set_mode(MODE.SLEEP)
-        self.set_dio_mapping([0] * 6)
+        self.set_dio_mapping([1,0,0,0,0,0])
+
+    def on_tx_done(self):
+        print("TxDone")
+        self.set_mode(MODE.STDBY)
+        self.clear_irq_flags(TxDone=1)
+        BOARD.led_off()
 
     def on_rx_done(self):
         BOARD.led_on()
