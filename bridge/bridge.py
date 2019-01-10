@@ -9,13 +9,16 @@ def on_connect(client, userdata, flags, rc):
     client.subscribe("LORA/send")
 
 def on_message(client, userdata, msg):
-    print(msg.topic+" "+str(msg.payload))
-    msg_text = str(msg.payload)
-    print("Sending LoRa message")
-    BOARD.led_on()
-    lora.write_payload(bytes(msg_text))
-    lora.set_mode(MODE.TX)
-    print("LoRa message sent")
+    try:
+        print(msg.topic+" "+str(msg.payload))
+        msg_text = str(msg.payload)
+        print("Sending LoRa message")
+        BOARD.led_on()
+        lora.write_payload(bytes(msg_text))
+        lora.set_mode(MODE.TX)
+        print("LoRa message sent")
+    except Exception as e:
+        print("Unexpected error", e)
 
 client = mqtt.Client()
 client.on_connect = on_connect
