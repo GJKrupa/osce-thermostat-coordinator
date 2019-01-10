@@ -3,6 +3,11 @@ services:
   mqtt:
     build: ./mqtt
     restart: always
+  app:
+    build: ./app
+    restart: always
+    depends_on:
+      - mqtt
   bridge:
     build: ./bridge
     privileged: true
