@@ -10,7 +10,7 @@ def on_message(client, userdata, msg):
     try:        
         msg_txt = str(msg.payload)
         print("MSG: " + msg.topic + " " + msg_txt)
-        if msg_text.startswith("SETTEMP,"):
+        if msg_txt.startswith("SETTEMP,"):
             println("Set temperature message")
             cmd, value = msg_txt.split(",", 1)
             temp = int(value)
