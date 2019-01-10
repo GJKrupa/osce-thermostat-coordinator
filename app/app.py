@@ -1,6 +1,5 @@
 import paho.mqtt.client as mqtt
 from time import sleep
-import traceback
 
 def on_connect(client, userdata, flags, rc):
     print("Connected with result code "+str(rc))
@@ -22,10 +21,9 @@ def on_message(client, userdata, msg):
         else:
             println("Unrecognised message")
     except Exception as e:
-        println(e)
-        println(traceback.format_exc())
+        println("Unexpected error:", e)
     except:
-        println("Unexpected error:", traceback.format_exc())
+        println("Unexpected error")
 
 client = mqtt.Client()
 client.on_connect = on_connect
