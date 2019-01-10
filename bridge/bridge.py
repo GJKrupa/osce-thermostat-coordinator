@@ -10,6 +10,8 @@ def on_connect(client, userdata, flags, rc):
 
 def on_message(client, userdata, msg):
     print(msg.topic+" "+str(msg.payload))
+    msg_text = str(msg.payload)
+    lora.write_payload(bytes(msg_text))
 
 client = mqtt.Client()
 client.on_connect = on_connect
