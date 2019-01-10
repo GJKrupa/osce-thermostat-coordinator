@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/sh
 while 1; do
     echo "Running mqtt server"
     sleep 1
