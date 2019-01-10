@@ -87,6 +87,7 @@ lora = LoRaRcvCont(verbose=False)
 args = parser.parse_args(lora)
 
 lora.set_mode(MODE.STDBY)
+lora.set_freq(868.1)
 lora.set_pa_config(pa_select=1)
 
 print(lora)
