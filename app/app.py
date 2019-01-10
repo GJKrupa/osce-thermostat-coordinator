@@ -21,7 +21,7 @@ def on_message(client, userdata, msg):
         else:
             println("Unrecognised message")
     except Exception as e:
-        println("Unexpected error:", e)
+        println("Unexpected error:" + e.message)
     except:
         println("Unexpected error")
 
