@@ -12,7 +12,7 @@ def on_message(client, userdata, msg):
 def update_temp(temp):
     client.publish("LORA/send", "APPLYTEMP," + str(temp))
 
-global hot = False
+hot = False
 
 def toggle_temp():
     global hot
